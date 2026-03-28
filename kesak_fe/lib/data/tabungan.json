@@ -1,0 +1,48 @@
+{
+  "dompet": {
+    "saldo_total": 12595000,
+    "saldo_unallocated": 1500000
+  },
+  "tabungan": [
+    {
+      "id": 1,
+      "nama": "Tabungan Pendidikan",
+      "deskripsi": "Untuk biaya pendidikan",
+      "saldo": 5000000,
+      "target": 10000000,
+      "icon": "school",
+      "color": "0xFF4C8CE4",
+      "dibuat": "2026-03-01"
+    },
+    {
+      "id": 2,
+      "nama": "Tabungan Liburan",
+      "deskripsi": "Untuk liburan impian",
+      "saldo": 3000000,
+      "target": 8000000,
+      "icon": "flight",
+      "color": "0xFFFAE251",
+      "dibuat": "2026-03-05"
+    },
+    {
+      "id": 3,
+      "nama": "Tabungan Darurat",
+      "deskripsi": "Untuk kebutuhan mendesak",
+      "saldo": 2095000,
+      "target": 5000000,
+      "icon": "warning",
+      "color": "0xFFFF6B6B",
+      "dibuat": "2026-03-10"
+    },
+    {
+      "id": 4,
+      "nama": "Tabungan Gadget",
+      "deskripsi": "Untuk beli gadget baru",
+      "saldo": 1500000,
+      "target": 3000000,
+      "icon": "devices",
+      "color": "0xFF00B894",
+      "dibuat": "2026-03-15"
+    }
+  ]
+}
