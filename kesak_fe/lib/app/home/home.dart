@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:kesak_fe/app/home/scrollableMenu.dart';
 import 'package:kesak_fe/components/CardSection.dart';
 import 'package:kesak_fe/components/Colors.dart';
+import 'package:kesak_fe/components/LoadingOverlay.dart';
 import 'package:kesak_fe/models/transaction_model.dart';
 
 class Home extends StatefulWidget {
@@ -16,6 +17,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isVisible = false;
+  bool isLoading = false;
   Transaction? recentTransaction;
   Tabungan? recentTabungan;
   String searchQuery = '';
@@ -55,6 +57,19 @@ class _HomeState extends State<Home> {
     } catch (e) {
       print('Error loading transactions: $e');
     }
+  }
+
+  Future<void> onRefresh() async {
+    setState(() {
+      isLoading = true;
+    });
+    // Simulate network delay
+    await Future.delayed(const Duration(seconds: 2));
+    // Reload transactions
+    await loadTransactions();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void toggoleVisibilty() {
@@ -375,20 +390,34 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-          child: Column(
-            children: [
-              _banner(),
-              const SizedBox(height: 23),
-              scrollableMenu(),
-              const SizedBox(height: 23),
-              _lastTransaksi(context),
-              const SizedBox(height: 20),
-            ],
+      body: Stack(
+        children: [
+          RefreshIndicator(
+            onRefresh: onRefresh,
+            color: Colors.transparent,
+            backgroundColor: Colors.transparent,
+            strokeWidth: 0,
+            displacement: 0,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Container(
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+                child: Column(
+                  children: [
+                    _banner(),
+                    const SizedBox(height: 23),
+                    scrollableMenu(),
+                    const SizedBox(height: 23),
+                    _lastTransaksi(context),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
+          // Lottie loading animation overlay
+          LoadingOverlay(isLoading: isLoading),
+        ],
       ),
     );
   }
