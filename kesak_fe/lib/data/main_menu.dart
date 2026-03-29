@@ -8,6 +8,7 @@ const menuShortCut = [
     "iconType": "icon",
     "color": secondaryColor,
     "onTap": null,
+    // "onTap": () => Navigator.push(context, MaterialPageRoute(builder: (context) => TabunganPage()))
   },
   {
     "title": "Transfer",
