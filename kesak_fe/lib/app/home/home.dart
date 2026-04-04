@@ -7,6 +7,7 @@ import 'package:kesak_fe/components/CardSection.dart';
 import 'package:kesak_fe/components/Colors.dart';
 import 'package:kesak_fe/components/LoadingOverlay.dart';
 import 'package:kesak_fe/models/transaction_model.dart';
+import 'package:lottie/lottie.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
         });
       }
     } catch (e) {
-      print('Error loading transactions: $e');
+      // print('Error loading transactions: $e');
     }
   }
 
@@ -394,8 +395,8 @@ class _HomeState extends State<Home> {
         children: [
           RefreshIndicator(
             onRefresh: onRefresh,
-            color: Colors.transparent,
-            backgroundColor: Colors.transparent,
+            color: const Color.fromARGB(0, 255, 255, 255),
+            backgroundColor: const Color.fromARGB(0, 255, 255, 255),
             strokeWidth: 0,
             displacement: 0,
             child: SingleChildScrollView(
@@ -415,7 +416,6 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          // Lottie loading animation overlay
           LoadingOverlay(isLoading: isLoading),
         ],
       ),

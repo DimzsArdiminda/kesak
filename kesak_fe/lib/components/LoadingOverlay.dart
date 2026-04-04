@@ -3,22 +3,20 @@ import 'package:lottie/lottie.dart';
 
 class LoadingOverlay extends StatelessWidget {
   final bool isLoading;
-  final String lottieAsset;
   final double width;
   final double height;
+  final String animationPath;
   final Color backgroundColor;
   final double borderRadius;
-  final bool showBlur;
 
   const LoadingOverlay({
     Key? key,
     required this.isLoading,
-    this.lottieAsset = 'lib/assets/all/Loading_animation.json',
     this.width = 100,
     this.height = 100,
+    this.animationPath = 'lib/assets/all/Loading_animation.json',
     this.backgroundColor = Colors.white,
     this.borderRadius = 15,
-    this.showBlur = true,
   }) : super(key: key);
 
   @override
@@ -34,18 +32,16 @@ class LoadingOverlay extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow: showBlur
-              ? [
-                  BoxShadow(
-                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.1),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  ),
-                ]
-              : [],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
+            ),
+          ],
         ),
         child: Lottie.asset(
-          lottieAsset,
+          animationPath,
           repeat: true,
         ),
       ),

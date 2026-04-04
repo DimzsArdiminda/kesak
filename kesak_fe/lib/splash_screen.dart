@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:kesak_fe/app/home/home.dart';
+import 'package:kesak_fe/components/Colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,34 +20,25 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1800),
+    _controller = AnimationController(vsync: this);
+
+    _opacity = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
     );
 
-    _opacity = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
-
-    _scale = Tween<double>(begin: 0.8, end: 1).animate(
+    _scale = Tween<double>(begin: 0.85, end: 1).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
     );
-
-    startAnimation();
   }
 
-  void startAnimation() async {
-    _controller.forward();
-
-    // tunggu animasi + sedikit delay
-    await Future.delayed(const Duration(milliseconds: 2800));
-
+  void _navigateNext() {
     if (!mounted) return;
 
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 700),
+        transitionDuration: const Duration(milliseconds: 600),
         pageBuilder: (_, __, ___) => const Home(),
         transitionsBuilder: (_, animation, __, child) {
           return FadeTransition(opacity: animation, child: child);
@@ -63,24 +55,77 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      backgroundColor: Colors.white, // bisa kamu ganti ke primaryColor
-      body: Center(
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            return Opacity(
-              opacity: _opacity.value,
-              child: Transform.scale(
-                scale: _scale.value,
-                child: child,
-              ),
-            );
-          },
-          child: Lottie.asset(
-            'lib/assets/all/splashscreen_login.json',
-            width: 200,
-            repeat: true,
+      body: Container(
+        width: size.width,
+        height: size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [primaryColor, secondaryColor],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Opacity(
+                opacity: _opacity.value,
+                child: Transform.scale(
+                  scale: _scale.value,
+                  child: child,
+                ),
+              );
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Lottie.asset(
+                  'lib/assets/all/splashscreen_login.json',
+                  width: size.width * 0.5,
+                  fit: BoxFit.contain,
+
+                  // 🔥 SYNC dengan animasi asli (ini penting!)
+                  onLoaded: (composition) {
+                    _controller.duration = composition.duration;
+                    _controller.forward();
+
+                    // delay sesuai animasi
+                    Future.delayed(
+                        composition.duration +
+                            const Duration(milliseconds: 400), () {
+                      _navigateNext();
+                    });
+                  },
+                ),
+
+                const SizedBox(height: 20),
+
+                // Branding (optional tapi bikin keliatan mahal 💎)
+                const Text(
+                  "KESAK",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 2,
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                const Text(
+                  "Wallet in Pocket",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white70,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
