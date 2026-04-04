@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:kesak_fe/app/history/history.dart';
 import 'dart:convert';
 import 'package:kesak_fe/app/home/scrollableMenu.dart';
+import 'package:kesak_fe/app/settings/settings.dart';
 import 'package:kesak_fe/components/CardSection.dart';
 import 'package:kesak_fe/components/Colors.dart';
 import 'package:kesak_fe/components/LoadingOverlay.dart';
+import 'package:kesak_fe/helper/router.dart';
 import 'package:kesak_fe/models/transaction_model.dart';
 import 'package:lottie/lottie.dart';
 
@@ -380,13 +382,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: primaryColor,
         title: Text(
           "Hi, ${greetings()}",
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => navigateTo(context, const Settings()),
             icon: const Icon(Icons.person_3_rounded),
           ),
         ],

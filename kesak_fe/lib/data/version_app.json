@@ -1,0 +1,21 @@
+{
+    "name": "Profile",
+    "description": "A page that displays the user's profile information and allows them to edit it.",
+    "route": "/profile",
+    "dependencies": [
+        "flutter",
+        "provider",
+        "shared_preferences"
+    ],
+    "files": [
+        {
+        "path": "lib/app/profile/profile.dart",
+        "content": "// This file contains the Profile page implementation."
+        },
+        {
+        "path": "lib/data/profile.json",
+        "content": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"123-456-7890\",\n  \"address\": \"123 Main St, Anytown, USA\",\n  \"profile_picture\": \"https://example.com/profile_picture.jpg\",\n  \"bio\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\"\n}"
+        }
+    ]
+
+}
