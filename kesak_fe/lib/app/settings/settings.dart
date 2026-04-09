@@ -112,10 +112,10 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget _buildSettingsMenuItem(Map item, int index) {
+  Widget _buildSettingsMenuItem(Map item, int index, int totalLength) {
     return Padding(
       padding: EdgeInsets.only(
-        bottom: index == menu_settings.length - 1 ? 0 : 15,
+        bottom: index == totalLength - 1 ? 0 : 15,
       ),
       child: GestureDetector(
         onTap: item['onTap'],
@@ -186,10 +186,11 @@ class _SettingsState extends State<Settings> {
                 child: _bannerProfile()),
             const SizedBox(height: 20),
             Column(
-              children: menu_settings.asMap().entries.map((entry) {
+              children: getMenuSettings(context).asMap().entries.map((entry) {
                 int index = entry.key;
                 Map item = entry.value;
-                return _buildSettingsMenuItem(item, index);
+                return _buildSettingsMenuItem(
+                    item, index, getMenuSettings(context).length);
               }).toList(),
             )
           ],
