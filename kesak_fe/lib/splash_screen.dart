@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:kesak_fe/app/home/home.dart';
+import 'package:kesak_fe/buttombar.dart';
 import 'package:kesak_fe/components/Colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen>
       context,
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 600),
-        pageBuilder: (_, __, ___) => const Home(),
+        pageBuilder: (_, __, ___) => const ButtomBar(),
         transitionsBuilder: (_, animation, __, child) {
           return FadeTransition(opacity: animation, child: child);
         },
